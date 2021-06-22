@@ -147,6 +147,7 @@ header {
 /* Datatable pagination */
 .paginacao {
     list-style: none;
+    padding: 11px;
 }
 
 .paginacao li {

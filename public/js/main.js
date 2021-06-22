@@ -1,4 +1,17 @@
 window.onload = function () {
+    $(".registros").on("change", function () {
+        $(".form").append('<input type="hidden" name="pagina" value="1" />');
+        $(".form").submit();
+    });
+
+    $(".numPagina").on("click", function () {
+        var pagina = $(this).val();
+        $(".form").append(
+            '<input type="hidden" name="pagina" value="' + pagina + '" />'
+        );
+        $(".form").submit();
+    });
+
     if ($(window).width() <= 992) {
         $(".sidebar").css("display", "none");
         $(".content").css("margin-left", "0px");
