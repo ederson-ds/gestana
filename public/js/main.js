@@ -1,4 +1,24 @@
 window.onload = function () {
+    $("#proximo").on("click", function () {
+        var pagina = parseInt($(this).attr("pagina"));
+        var numPaginas = $(this).attr("numPaginas");
+        if (pagina == numPaginas) return;
+        console.log((pagina + 1));
+        $(".form").append(
+            '<input type="hidden" name="pagina" value="' + (pagina + 1) + '" />'
+        );
+        $(".form").submit();
+    });
+
+    $("#anterior").on("click", function () {
+        var pagina = parseInt($(this).attr("pagina"));
+        if (pagina == 1) return;
+        $(".form").append(
+            '<input type="hidden" name="pagina" value="' + (pagina - 1) + '" />'
+        );
+        $(".form").submit();
+    });
+
     $(".registros").on("change", function () {
         $(".form").append('<input type="hidden" name="pagina" value="1" />');
         $(".form").submit();

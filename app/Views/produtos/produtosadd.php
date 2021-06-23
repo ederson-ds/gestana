@@ -1,12 +1,12 @@
 <div class="container">
-    <h2>Inserir novo produto</h2>
+    <h2><?php echo $acao ?> produto</h2>
     <strong><?php echo $msg ?></strong>
     <form method="post">
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="descricao">Descrição</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao">
+                    <input type="text" class="form-control" id="descricao" name="descricao" value="<?php echo $produto->descricao ?>">
                 </div>
             </div>
         </div>

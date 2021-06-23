@@ -2,12 +2,25 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use R;
 
-class ProdutoModel extends Model
+class ProdutoModel extends RedbeanModel
 {
-    protected $table = 'produto';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['descricao'];
-    protected $returnType = 'object';
+    protected $table = "produto";
+    protected $searchColumn = 'descricao';
+    public $descricao;
+
+    public function insert()
+    {
+        $produto = R::dispense($this->table);
+        $produto->descricao = $this->descricao;
+        R::store($produto);
+    }
+
+    public function edit($produto_id)
+    {
+        $produto = R::load($this->table, $produto_id);
+        $produto->descricao = $this->descricao;
+        R::store($produto);
+    }
 }

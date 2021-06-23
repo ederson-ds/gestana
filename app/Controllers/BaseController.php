@@ -38,6 +38,8 @@ class BaseController extends Controller
 	 */
 	protected $helpers = [];
 
+	private $registros = array("5", "2", "10", "25", "50", "100");
+
 	/**
 	 * Constructor.
 	 *
@@ -54,5 +56,35 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
+	}
+
+	public function indexview($model, $controllerName)
+	{
+		$data['registros'] = 5;
+		$data['registrosList'] = $this->registros;
+		$data['pagina'] = 1;
+		$data['buscar'] = "";
+
+		if ($this->request->getMethod() === 'post') {
+			if ($this->request->getPost('registros') != null)
+				$data['registros'] = $this->request->getPost('registros');
+			if ($this->request->getPost('pagina') != null)
+				$data['pagina'] = $this->request->getPost('pagina');
+			if ($this->request->getPost('buscar') != null)
+				$data['buscar'] = $this->request->getPost('buscar');
+		}
+		$data['offset'] = $data['pagina'] * $data['registros'] - $data['registros'];
+		if ($this->request->getPost('buscar') != null) {
+			$data[$controllerName] = $model->search($this->request->getPost('buscar'), $data['registros'], $data['offset']);
+			$data['totalItems'] = $model->countSearch($this->request->getPost('buscar'));
+		} else {
+			$data[$controllerName] = $model->find($data['registros'], $data['offset']);
+			$data['totalItems'] = $model->count();
+		}
+
+		$data['numPaginas'] = ceil($data['totalItems'] / $data['registros']);
+		$data['disabilitaAnterior'] = $data['pagina'] == 1;
+		$data['disabilitaProximo'] = $data['pagina'] == $data['numPaginas'];
+		return $data;
 	}
 }
