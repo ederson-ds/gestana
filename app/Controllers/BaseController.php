@@ -64,6 +64,7 @@ class BaseController extends Controller
 		$data['registrosList'] = $this->registros;
 		$data['pagina'] = 1;
 		$data['buscar'] = "";
+		$data['orderBy'] = $this->request->getPost('orderBy');
 
 		if ($this->request->getMethod() === 'post') {
 			if ($this->request->getPost('registros') != null)
@@ -75,10 +76,10 @@ class BaseController extends Controller
 		}
 		$data['offset'] = $data['pagina'] * $data['registros'] - $data['registros'];
 		if ($this->request->getPost('buscar') != null) {
-			$data[$controllerName] = $model->search($this->request->getPost('buscar'), $data['registros'], $data['offset']);
+			$data[$controllerName] = $model->search($this->request->getPost('buscar'), $data['registros'], $data['offset'], $data['orderBy']);
 			$data['totalItems'] = $model->countSearch($this->request->getPost('buscar'));
 		} else {
-			$data[$controllerName] = $model->find($data['registros'], $data['offset']);
+			$data[$controllerName] = $model->find($data['registros'], $data['offset'], $data['orderBy']);
 			$data['totalItems'] = $model->count();
 		}
 

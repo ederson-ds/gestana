@@ -19,16 +19,20 @@ class RedbeanModel
         );
     }
 
-    public function search($text, $registros, $offset)
+    public function search($text, $registros, $offset, $orderBy)
     {
-        return R::find($this->table, ' ' . $this->searchColumn . ' LIKE ? OFFSET ? LIMIT ?', ['%' . $text . '%', $offset, $registros]);
+        if ($orderBy)
+            $orderBy = " ORDER BY " . $orderBy;
+        return R::find($this->table, ' ' . $this->searchColumn . ' LIKE ? ' . $orderBy . ' OFFSET ? LIMIT ?', ['%' . $text . '%', $offset, $registros]);
     }
 
-    public function find($registros, $offset)
+    public function find($registros, $offset, $orderBy)
     {
+        if ($orderBy)
+            $orderBy = " ORDER BY " . $orderBy;
         return R::find(
             $this->table,
-            ' OFFSET :offset LIMIT :limit',
+            $orderBy . ' OFFSET :offset LIMIT :limit',
             array(
                 ':limit' => $registros,
                 ':offset' => $offset
@@ -36,9 +40,15 @@ class RedbeanModel
         );
     }
 
-    public function load($produto_id)
+    public function excluir($id)
     {
-        return R::load($this->table, $produto_id);
+        $item = $this->load($id);
+        R::trash($item);
+    }
+
+    public function load($id)
+    {
+        return R::load($this->table, $id);
     }
 
     public function findOne($id)

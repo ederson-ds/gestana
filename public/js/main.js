@@ -1,9 +1,46 @@
 window.onload = function () {
+    /*Excluir*/
+    $(".excluir").on("click", function () {
+        var controllerName = $(this).attr("controllerName");
+        $("#excluirSim").attr(
+            "href",
+            controllerName + "/excluir/" + $(this).attr("id")
+        );
+    });
+
+    $("#refresh").on("click", function () {
+        $(".form").append('<input type="hidden" name="registros" value="5" />');
+        $(".form").append('<input type="hidden" name="buscar" value="" />');
+        $(".form").submit();
+    });
+    /*Table*/
+    $("table > thead > tr > th").on("click", function () {
+        if ($(this).text() == "Ações") {
+            return;
+        }
+        var column = $(this).attr("column");
+        $(".form").append(
+            '<input type="hidden" name="orderBy" value="' + column + '" />'
+        );
+        column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                '<input type="hidden" name="orderBy" value="" />'
+            );
+        }
+        $(".form").submit();
+    });
+
     $("#proximo").on("click", function () {
         var pagina = parseInt($(this).attr("pagina"));
         var numPaginas = $(this).attr("numPaginas");
         if (pagina == numPaginas) return;
-        console.log((pagina + 1));
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                '<input type="hidden" name="orderBy" value="' + column + '" />'
+            );
+        }
         $(".form").append(
             '<input type="hidden" name="pagina" value="' + (pagina + 1) + '" />'
         );
@@ -13,6 +50,12 @@ window.onload = function () {
     $("#anterior").on("click", function () {
         var pagina = parseInt($(this).attr("pagina"));
         if (pagina == 1) return;
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                '<input type="hidden" name="orderBy" value="' + column + '" />'
+            );
+        }
         $(".form").append(
             '<input type="hidden" name="pagina" value="' + (pagina - 1) + '" />'
         );
@@ -20,12 +63,24 @@ window.onload = function () {
     });
 
     $(".registros").on("change", function () {
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                '<input type="hidden" name="orderBy" value="' + column + '" />'
+            );
+        }
         $(".form").append('<input type="hidden" name="pagina" value="1" />');
         $(".form").submit();
     });
 
     $(".numPagina").on("click", function () {
         var pagina = $(this).val();
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                '<input type="hidden" name="orderBy" value="' + column + '" />'
+            );
+        }
         $(".form").append(
             '<input type="hidden" name="pagina" value="' + pagina + '" />'
         );
