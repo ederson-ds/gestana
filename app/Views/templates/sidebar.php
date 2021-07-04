@@ -2,7 +2,7 @@
     <div class="navigation">
         <ul>
             <li>
-                <a href="/">
+                <a href="<?php echo base_url("/") ?>">
                     <span class="icon"><i class="fa fa-apple"></i></span>
                     <span class="title" style="margin-top: 7px">
                         <h2>Gestana</h2>
@@ -10,7 +10,7 @@
                 </a>
             </li>
             <li>
-                <a href="/">
+                <a href="<?php echo base_url("/") ?>">
                     <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                     <span class="title">Home</span>
                 </a>
