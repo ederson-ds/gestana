@@ -1,4 +1,14 @@
 window.onload = function () {
+    /* Toggle menu */
+    $(".toggle").on("click", function () {
+        let toggle = document.querySelector(".toggle");
+        let navigation = document.querySelector(".navigation");
+        let main = document.querySelector(".main");
+        toggle.classList.toggle("active");
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+    });
+
     /*Excluir*/
     $(".excluir").on("click", function () {
         var controllerName = $(this).attr("controllerName");
