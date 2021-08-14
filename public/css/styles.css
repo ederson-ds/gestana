@@ -310,3 +310,61 @@ table > thead > tr > th[column="acoes"] {
 .invalid {
     border-color: #dc3545;
 }
+
+/* Table */
+th {
+    border: 1px solid #dddddd;
+    background: white;
+}
+
+td {
+    border: 1px solid #dddddd;
+    background: #f7f7f7;
+}
+
+/* Pagination */
+.numPagina, #anterior, #proximo, .paginaAtiva {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 0px;
+}
+
+#anterior, #proximo {
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+}
+
+.numPagina, .paginaAtiva, .offsetPageProximo, .offsetPageAnterior {
+    width: 35.2px;
+    display: block;
+    text-align: center;
+    height: 38px;
+    cursor: pointer;
+    line-height: 38px;
+}
+
+.numPagina {
+    border-right: 1px solid #dee2e6;
+}
+
+.lastPage {
+    border-right: 0px !important;
+}
+
+.paginaAtiva {
+    background: orange;
+    border-right: 1px solid #dee2e6;
+    cursor: default;
+}
+
+.offsetPageProximo {
+    border-left: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.offsetPageAnterior {
+    border-right: 1px solid #dee2e6;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}

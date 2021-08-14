@@ -3,7 +3,7 @@
         <ul>
             <li>
                 <a href="<?php echo base_url("/") ?>">
-                    <span class="icon"><i class="fa fa-apple"></i></span>
+                    <span class="icon"><i class="fa fa-superpowers"></i></span>
                     <span class="title" style="margin-top: 7px">
                         <h2>Gestana</h2>
                     </span>

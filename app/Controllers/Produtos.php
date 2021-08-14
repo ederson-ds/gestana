@@ -9,7 +9,9 @@ class Produtos extends BaseController
 		$data = parent::indexview(new \App\Models\ProdutoModel(), 'produtos');
 		echo view('templates/header');
 		echo view('templates/sidebar');
+		echo view('toptable', $data);
 		echo view('produtos/produtos', $data);
+		echo view('paginacao', $data);
 		echo view('templates/footer');
 	}
 

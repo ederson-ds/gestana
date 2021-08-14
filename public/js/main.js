@@ -13,14 +13,20 @@ window.onload = function () {
     $(".excluir").on("click", function () {
         var controllerName = $(this).attr("controllerName");
         $("#excluirSim").attr(
-            "href",
-            controllerName + "/excluir/" + $(this).attr("id")
-        );
+                "href",
+                controllerName + "/excluir/" + $(this).attr("id")
+                );
+    });
+
+    $("#buscar").on("click", function () {
+        $(".form").append('<input type="hidden" name="offsetPages" value="3" />');
+        $(".form").submit();
     });
 
     $("#refresh").on("click", function () {
         $(".form").append('<input type="hidden" name="registros" value="5" />');
         $(".form").append('<input type="hidden" name="buscar" value="" />');
+        $(".form").append('<input type="hidden" name="offsetPages" value="3" />');
         $(".form").submit();
     });
     /*Table*/
@@ -30,45 +36,60 @@ window.onload = function () {
         }
         var column = $(this).attr("column");
         $(".form").append(
-            '<input type="hidden" name="orderBy" value="' + column + '" />'
-        );
+                '<input type="hidden" name="orderBy" value="' + column + '" />'
+                );
         column = $("table > thead > tr > th.active").attr("column");
         if (column) {
             $(".form").append(
-                '<input type="hidden" name="orderBy" value="" />'
-            );
+                    '<input type="hidden" name="orderBy" value="" />'
+                    );
         }
+        $(".form").append('<input type="hidden" name="offsetPages" value="3" />');
         $(".form").submit();
     });
 
     $("#proximo").on("click", function () {
         var pagina = parseInt($(this).attr("pagina"));
+        var offsetPages = parseInt($("#offsetPages").val());
         var numPaginas = $(this).attr("numPaginas");
-        if (pagina == numPaginas) return;
+        if (pagina == numPaginas)
+            return;
         var column = $("table > thead > tr > th.active").attr("column");
         if (column) {
             $(".form").append(
-                '<input type="hidden" name="orderBy" value="' + column + '" />'
-            );
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
+        }
+        if (offsetPages == (pagina)) {
+            $(".form").append(
+                    '<input type="hidden" name="offsetPages" value="' + (offsetPages + 3) + '" />'
+                    );
         }
         $(".form").append(
-            '<input type="hidden" name="pagina" value="' + (pagina + 1) + '" />'
-        );
+                '<input type="hidden" name="pagina" value="' + (pagina + 1) + '" />'
+                );
         $(".form").submit();
     });
 
     $("#anterior").on("click", function () {
         var pagina = parseInt($(this).attr("pagina"));
-        if (pagina == 1) return;
+        var offsetPages = parseInt($("#offsetPages").val());
+        if (pagina == 1)
+            return;
         var column = $("table > thead > tr > th.active").attr("column");
         if (column) {
             $(".form").append(
-                '<input type="hidden" name="orderBy" value="' + column + '" />'
-            );
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
+        }
+        if (offsetPages - 3 == (pagina - 1)) {
+            $(".form").append(
+                    '<input type="hidden" name="offsetPages" value="' + (offsetPages - 3) + '" />'
+                    );
         }
         $(".form").append(
-            '<input type="hidden" name="pagina" value="' + (pagina - 1) + '" />'
-        );
+                '<input type="hidden" name="pagina" value="' + (pagina - 1) + '" />'
+                );
         $(".form").submit();
     });
 
@@ -76,24 +97,60 @@ window.onload = function () {
         var column = $("table > thead > tr > th.active").attr("column");
         if (column) {
             $(".form").append(
-                '<input type="hidden" name="orderBy" value="' + column + '" />'
-            );
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
         }
+        $(".form").append('<input type="hidden" name="offsetPages" value="3" />');
         $(".form").append('<input type="hidden" name="pagina" value="1" />');
         $(".form").submit();
     });
 
     $(".numPagina").on("click", function () {
-        var pagina = $(this).val();
+        var pagina = $(this).attr("value");
         var column = $("table > thead > tr > th.active").attr("column");
         if (column) {
             $(".form").append(
-                '<input type="hidden" name="orderBy" value="' + column + '" />'
-            );
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
         }
         $(".form").append(
-            '<input type="hidden" name="pagina" value="' + pagina + '" />'
-        );
+                '<input type="hidden" name="pagina" value="' + pagina + '" />'
+                );
+        $(".form").submit();
+    });
+
+    $(".offsetPageProximo").on("click", function () {
+        var pagina = parseInt($(this).attr("value"));
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
+        }
+        $(".form").append(
+                '<input type="hidden" name="offsetPages" value="' + (pagina + 3) + '" />'
+                );
+        $(".form").append(
+                '<input type="hidden" name="pagina" value="' + (pagina + 1) + '" />'
+                );
+        $(".form").submit();
+    });
+
+    $(".offsetPageAnterior").on("click", function () {
+        var pagina = parseInt($(this).attr("value"));
+        var offsetPages = parseInt($("#offsetPages").val());
+        var column = $("table > thead > tr > th.active").attr("column");
+        if (column) {
+            $(".form").append(
+                    '<input type="hidden" name="orderBy" value="' + column + '" />'
+                    );
+        }
+        $(".form").append(
+                '<input type="hidden" name="offsetPages" value="' + (offsetPages - 3) + '" />'
+                );
+        $(".form").append(
+                '<input type="hidden" name="pagina" value="' + (offsetPages - 3) + '" />'
+                );
         $(".form").submit();
     });
 
