@@ -2,77 +2,38 @@
 
 namespace App\Controllers;
 
-class Produtos extends BaseController
-{
-	public function index()
-	{
-		$data = parent::indexview(new \App\Models\ProdutoModel(), 'produtos');
-		echo view('templates/header');
-		echo view('templates/sidebar');
-		echo view('toptable', $data);
-		echo view('produtos/produtos', $data);
-		echo view('paginacao', $data);
-		echo view('templates/footer');
-	}
+class Produtos extends BaseController {
 
-	public function inserir()
-	{
-		$data['acao'] = 'Inserir';
-		$data['msg'] = '';
-		// Validações
-		$data['descricao_error'] = "";
-		$produtoModel = new \App\Models\ProdutoModel();
-		$data['produto'] = $produtoModel->load(0);
-		helper('validacao');
-		if ($this->request->getMethod() === 'post') {
-			$produtoModel->descricao = $this->request->getPost('descricao');
-			if (!$produtoModel->descricao) {
-				$data['descricao_error'] = "Campo obrigatório";
-			} else if (!validarSomenteLetrasENumeros($produtoModel->descricao)) {
-				$data['descricao_error'] = "É permitido apenas letras e números";
-			} else {
-				$produtoModel->insert();
-				$data['msg'] = 'Produto inserido com sucesso';
-			}
-		}
+    public function index() {
+        $data = parent::indexview(new \App\Models\ProdutoModel(), 'produtos');
+        echo view('templates/header');
+        echo view('templates/sidebar');
+        echo view('toptable', $data);
+        echo view('produtos/produtos', $data);
+        echo view('paginacao', $data);
+        echo view('templates/footerindex');
+    }
 
-		echo view('templates/header');
-		echo view('templates/sidebar');
-		echo view('produtos/produtosadd', $data);
-		echo view('templates/footer');
-	}
+    public function create($id = 0) {
+        $data['id'] = $id;
+        $produtoModel = new \App\Models\ProdutoModel();
+        $data['produto'] = $produtoModel->load($id);
 
-	public function editar($produto_id)
-	{
-		$data['acao'] = 'Editar';
-		$data['msg'] = '';
-		// Validações
-		$data['descricao_error'] = "";
-		helper('validacao');
-		$produtoModel = new \App\Models\ProdutoModel();
-		if ($this->request->getMethod() === 'post') {
-			$produtoModel->descricao = $this->request->getPost('descricao');
-			if (!$produtoModel->descricao) {
-				$data['descricao_error'] = "Campo obrigatório";
-			} else if (!validarSomenteLetrasENumeros($produtoModel->descricao)) {
-				$data['descricao_error'] = "É permitido apenas letras e números";
-			} else {
-				$produtoModel->edit($produto_id);
-				$data['msg'] = 'Produto atualizado com sucesso';
-			}
-		}
-		$data['produto'] = $produtoModel->findOne($produto_id);
+        $data = validarSomenteLetrasENumeros(["descricao"], $produtoModel, $data, $this->request);
+        $data = validaCamposObrigatorios(["descricao"], $produtoModel, $data, $this->request);
 
-		echo view('templates/header');
-		echo view('templates/sidebar');
-		echo view('produtos/produtosadd', $data);
-		echo view('templates/footer');
-	}
+        $data = $produtoModel->store($id, $this->request, $data);
+        
+        echo view('templates/header');
+        echo view('templates/sidebar');
+        echo view('produtos/produtosadd', $data);
+        echo view('templates/footer', $data);
+    }
 
-	public function excluir($produto_id)
-	{
-		$produtoModel = new \App\Models\ProdutoModel();
-		$produtoModel->excluir($produto_id);
-		return redirect()->to('/produtos');
-	}
+    public function excluir($produto_id) {
+        $produtoModel = new \App\Models\ProdutoModel();
+        $produtoModel->excluir($produto_id);
+        return redirect()->to('/produtos');
+    }
+
 }

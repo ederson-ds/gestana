@@ -35,7 +35,7 @@ class BaseController extends Controller {
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['validacao'];
     private $registros = array("5", "2", "10", "25", "50", "100");
 
     /**
@@ -63,7 +63,11 @@ class BaseController extends Controller {
         $data['offsetPages'] = 3;
         $data['buscar'] = "";
         $data['orderBy'] = $this->request->getPost('orderBy');
-
+        foreach ($model as $key => $value) {
+            if ($this->request->getPost('orderBy' . $key)) {
+                $data['orderBy'] = $this->request->getPost('orderBy' . $key);
+            }
+        }
         if ($this->request->getMethod() === 'post') {
             if ($this->request->getPost('offsetPages') != null)
                 $data['offsetPages'] = $this->request->getPost('offsetPages');

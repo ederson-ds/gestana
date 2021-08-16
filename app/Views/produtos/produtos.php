@@ -1,7 +1,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th column="descricao" class="<?php echo (isset($_POST['orderBy']) && $_POST['orderBy'] != "") ? "active" : "" ?>">Descrição</th>
+            <th column="descricao" class="<?php echo (isset($_POST['orderBydescricao']) && $_POST['orderBydescricao'] != "") ? "active" : "" ?>">Descrição</th>
             <th column="acoes">Ações</th>
         </tr>
     </thead>
@@ -10,7 +10,7 @@
             <tr>
                 <td><?php echo $produto->descricao ?></td>
                 <td>
-                    <a href="<?php echo base_url("/$controllerName/editar/") . "/" . $produto->id ?>">
+                    <a href="<?php echo base_url("/$controllerName/create/") . "/" . $produto->id ?>">
                         <button type="button" class="btn btn-warning">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </button>

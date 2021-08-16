@@ -36,7 +36,7 @@ window.onload = function () {
         }
         var column = $(this).attr("column");
         $(".form").append(
-                '<input type="hidden" name="orderBy" value="' + column + '" />'
+                '<input type="hidden" name="orderBy'+column+'" value="' + column + '" />'
                 );
         column = $("table > thead > tr > th.active").attr("column");
         if (column) {

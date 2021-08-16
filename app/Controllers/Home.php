@@ -2,13 +2,13 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
-{
-	public function index()
-	{
-		echo view('templates/header');
-		echo view('templates/sidebar');
-		echo view('pagina1');
-		echo view('templates/footer');
-	}
+class Home extends BaseController {
+
+    public function index() {
+        echo view('templates/header');
+        echo view('templates/sidebar');
+        echo view('pagina1');
+        echo view('templates/footerindex');
+    }
+
 }

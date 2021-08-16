@@ -21,6 +21,12 @@
                     <span class="title">Produtos</span>
                 </a>
             </li>
+            <li>
+                <a href="<?php echo base_url("/clientes") ?>">
+                    <span class="icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <span class="title">Clientes</span>
+                </a>
+            </li>
         </ul>
     </div>
 

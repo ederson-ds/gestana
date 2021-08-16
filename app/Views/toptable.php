@@ -1,7 +1,7 @@
 <div class="container">
     <form class="form" method="post" novalidate>
         <h1><?php echo ucfirst($controllerName); ?></h1>
-        <a href="<?php echo base_url("/$controllerName/inserir") ?>">
+        <a href="<?php echo base_url("/$controllerName/create") ?>">
             <button type="button" class="btn btn-primary" style="margin-bottom: 10px;">
                 Inserir novo
             </button>
